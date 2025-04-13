@@ -123,6 +123,55 @@ Error Reasons:
 - Age under 18: 84 occurrences
 ```
 
+## Performance Considerations & Deployment Options
+
+### Performance Optimizations
+
+The Customer API implementation focuses on performance in several key areas:
+
+1. **Efficient Sorting**
+   - Uses binary search (O(log n)) for finding insertion positions instead of linear search (O(n))
+   - Avoids expensive re-sorting of the entire collection after each insertion
+   - Maintains sorting during insert rather than sorting after all operations
+
+2. **Thread Safety with Minimal Locking**
+   - Fine-grained locking only where necessary to minimize contention
+   - Read operations can occur in parallel without blocking each other
+   - Lock scopes are kept as small as possible to maximize throughput
+
+3. **Optimized Data Operations**
+   - In-memory data structure for fast access
+   - Minimal data copying during operations
+   - Batch processing capability for multiple customers in one request
+
+4. **Memory Efficiency**
+   - Uses value types where appropriate
+   - Avoids unnecessary object creation during customer processing
+
+### Deployment Options
+
+The API is designed to be easily deployable to various hosting environments:
+
+1. **Containerization**
+   - Can be containerized using Docker for consistent deployment
+   - Simple configuration makes it ideal for container orchestration (Kubernetes)
+
+2. **Serverless Deployment Options**
+   - Compatible with Azure Functions with minimal modifications
+   - Can be deployed to AWS Lambda using AWS .NET Lambda runtime
+   - Adaptable to Google Cloud Functions
+
+3. **Traditional Hosting**
+   - Works with standard IIS hosting
+   - Compatible with Linux hosting using Kestrel
+
+4. **Scaling Considerations**
+   - Stateless design enables horizontal scaling
+   - File persistence can be replaced with database storage for distributed deployments
+   - Configuration via environment variables for different environments
+
+The implemented API meets the performance requirements through efficient algorithms and resource utilization while remaining flexible for various deployment scenarios, including serverless options as mentioned in the bonus criteria.
+
 ## Project Structure
 
 ```
